@@ -87,12 +87,19 @@
             let currentLetter = event.target.innerText.toLowerCase();
             console.log("currentLetter", currentLetter);
             let currentQuestion = questionDisplay.innerText.split("");
+            let found = false;
 
             for (let i = 0; i < Answer.length; i++) {
               if (currentLetter === Answer[i]) {
                 console.log("found at", i);
                 currentQuestion[i] = currentLetter;
+                found = true;
               }
+            }
+
+            if (!found) {
+              counter -= 1;
+              counterDisplay.innerText = counter;
             }
 
             currentAnswerQuestion = currentQuestion.join("");
@@ -100,8 +107,7 @@
             questionDisplay.innerText = currentAnswerQuestion;
 
             event.target.disabled = true;
-            counter -= 1;
-            counterDisplay.innerText = counter;
+
             answerList.push(currentLetter);
 
             localStorage.setItem("counter", counter);
@@ -155,7 +161,8 @@
           let selectedAnswer = responseJSON.results[randomIndex].name;
           Answer = selectedAnswer;
           state = "playing";
-          selectedAnswer = selectedAnswer.replace(/./g, "_");
+          selectedAnswer = selectedAnswer.replace(/[^-]/g, "_");
+          //"aaa-aa" => "___-__"
 
           questionDisplay.innerText = selectedAnswer;
 
