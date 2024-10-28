@@ -162,8 +162,8 @@
           let selectedAnswer = responseJSON.results[randomIndex].name;
           Answer = selectedAnswer;
           state = "playing";
-          selectedAnswer = selectedAnswer.replace(/[^-]/g, "_");
           //"aaa-aa" => "___-__"
+          selectedAnswer = selectedAnswer.replace(/[^-]/g, "_");
 
           questionDisplay.innerText = selectedAnswer;
 
